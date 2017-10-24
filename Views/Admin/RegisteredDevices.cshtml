@@ -1,0 +1,66 @@
+﻿@model IEnumerable<LostAndFound.Models.Database.ClientDeviceInfo>
+@{
+    ViewBag.Title = "Summary";
+}
+<script src="~/Scripts/siteScripts/Devices.js?@DateTime.Now.Ticks.ToString()"></script>
+
+<h2>@Model.Count() devices displayed</h2>
+<br />
+<br />
+
+<select id="howManyDevicesPerPage">
+    <option value="" selected>Select how many devices per page</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+</select>
+<br />
+<br />
+<button id="previousDevices">
+    previous
+</button>
+<button id="nextDevices">
+    next
+</button>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th style="text-align:center;">Name</th>
+            <th style="text-align:center;">Category</th>
+            <th style="text-align:center;">NUinta Serial #</th>
+            <th style="text-align:center;">Condition</th>
+            <th style="text-align:center;">Bin</th>
+            <th style="text-align:center;">Repair cost</th>
+            <th style="text-align:center;">Other comments</th>
+            <th style="text-align:center;">Used by</th>
+            <th style="text-align:center;">Value</th>
+            <th style="text-align:center;">Sold for</th>
+            <th style="text-align:center;">Date added</th>
+            <th style="text-align:center;">Time added</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var device in Model)
+        {
+            <tr>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceName)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceCategory)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceNUINTASerialNumber)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceCondition)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceBin)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceRepairCost)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceOtherComments)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceUsedBy)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceValue)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceSoldFor)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceRegistrationDate)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => device.deviceRegistrationTime)</td>
+                <td style="text-align:center;"><a href="@Url.Action("EditDevice", "Device")/@Html.DisplayFor(modelItem => device.id)">Edit</a></td>
+                <td style="text-align:center;"><a class="pointer-arrow" onclick="deleteDevice(@Html.DisplayFor(modelItem => device.id))">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

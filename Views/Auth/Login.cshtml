@@ -1,0 +1,21 @@
+﻿@model LostAndFound.Models.UserLoginInfo
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Log in</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    @Html.LabelFor(u => u.username)<br />
+    @Html.TextBoxFor(u => u.username)<br />
+    @Html.LabelFor(u => u.password)<br />
+    @Html.PasswordFor(u => u.password)<br />
+    <p>
+        <button type="submit">Log in</button>
+    </p>
+}
+

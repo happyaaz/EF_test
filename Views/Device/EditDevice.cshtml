@@ -1,0 +1,51 @@
+﻿@model LostAndFound.Models.Database.ClientDeviceInfo
+@using Microsoft.AspNet.Identity
+@using System.Security.Claims
+@using LostAndFound.Helpers
+@{
+    ViewBag.Title = "Edit a device";
+    var userRole = GetCurrentClaimValues.GetCurrentUserRole();
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+
+    @Html.LabelFor(d => d.deviceCategory)<br />
+    @*@Html.DropDownListFor(d => d.deviceCategory, new SelectList(ViewBag.availableDeviceCategories, "deviceCategoryId", "deviceCategoryName"))<br />*@
+    @Html.DropDownListFor(d => d.deviceCategory, new SelectList(ViewBag.availableDeviceCategories, "deviceCategoryName", "deviceCategoryName"))<br />
+    @*@Html.LabelFor(d => d.deviceSubcategory)<br />
+    @Html.DropDownList("DeviceSubcategory", new SelectList(string.Empty, "deviceSubcategoryName", "deviceSubcategoryName"), Model.deviceSubcategory)<br />*@
+    @Html.LabelFor(d => d.deviceName)<br />
+    @Html.TextBoxFor(d => d.deviceName)<br />
+    @Html.LabelFor(d => d.deviceNUINTASerialNumber)<br />
+    @Html.TextBoxFor(d => d.deviceNUINTASerialNumber)<br />
+
+    @Html.LabelFor(d => d.deviceCarrier)<br />
+    @Html.TextBoxFor(d => d.deviceCarrier)<br />
+    @Html.LabelFor(d => d.deviceCondition)<br />
+    @Html.DropDownListFor(d => d.deviceCondition, new SelectList(ViewBag.availableDeviceConditions, "deviceConditionName", "deviceConditionName"))<br />
+    @Html.LabelFor(d => d.deviceBin)<br />
+    @Html.DropDownListFor(d => d.deviceBin, new SelectList(ViewBag.availableDeviceBins, "binName", "binName"))<br />
+    @Html.LabelFor(d => d.deviceRepairCost)<br />
+    @Html.TextBoxFor(d => d.deviceRepairCost)<br />
+    @Html.LabelFor(d => d.deviceOtherComments)<br />
+    @Html.TextBoxFor(d => d.deviceOtherComments)<br />
+
+    if (userRole == RoleNames.ROLE_ADMIN)
+    {
+        @Html.LabelFor(d => d.deviceUsedBy)<br />
+        @Html.TextBoxFor(d => d.deviceUsedBy)<br />
+        @Html.LabelFor(d => d.deviceValue)<br />
+        @Html.TextBoxFor(d => d.deviceValue)<br />
+        @Html.LabelFor(d => d.deviceSoldFor)<br />
+        @Html.TextBoxFor(d => d.deviceSoldFor)<br />
+    }
+
+    @Html.AntiForgeryToken()
+    <br />
+    <p>
+        <button type="submit">Edit this device</button>
+    </p>
+}

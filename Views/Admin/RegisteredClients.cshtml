@@ -1,0 +1,38 @@
+﻿@model IEnumerable<LostAndFound.Models.ClientBasicInfo>
+@{
+    ViewBag.Title = "RegisteredClients";
+}
+
+<h2>RegisteredClients</h2>
+
+<table class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th style="text-align:center;">Name</th>
+            <th style="text-align:center;">Contact person</th>
+            <th style="text-align:center;">Contact person's number</th>
+            <th style="text-align:center;">Contact number</th>
+            <th style="text-align:center;">Commision in %</th>
+            <th style="text-align:center;">Per item base fee in USD</th>
+            <th style="text-align:center;">Sales fee in USD or %</th>
+            <th style="text-align:center;">Shipping fee in USD</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model)
+        {
+            <tr>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => client.clientName)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => client.clientContactPerson)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => client.clientContactNumber)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => client.clientContactEmail)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => client.clientCommisionInPercent)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => client.clientPerItemBaseFee)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => client.clientSalesFee)</td>
+                <td style="text-align:center;">@Html.DisplayFor(modelItem => client.clientShippingFee)</td>
+                <td style="text-align:center;"><a href="@Url.Action("EditClient", "Admin")/@Html.DisplayFor(modelItem => client.clientId)">Edit</a></td>
+                <td style="text-align:center;"><a class="pointer-arrow" onclick="deleteClient(@Html.DisplayFor(modelItem => client.clientId))">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

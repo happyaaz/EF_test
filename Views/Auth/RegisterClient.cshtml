@@ -1,0 +1,17 @@
+﻿@model LostAndFound.Models.ClientBasicInfo
+@{
+    ViewBag.Title = "Register a new client";
+}
+
+<h2>RegisterClient</h2>
+@Html.ValidationSummary(true)
+@using (Html.BeginForm())
+{
+
+    @Html.EditorForModel()
+    @Html.AntiForgeryToken()
+    <br />
+    <p>
+        <button type="submit">Register</button>
+    </p>
+}

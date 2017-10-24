@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Security.Claims
+@using LostAndFound.Helpers
+
+@model IEnumerable<LostAndFound.Models.Database.DeviceCategory>
+@{
+    ViewBag.Title = "Categories";
+    var userRole = GetCurrentClaimValues.GetCurrentUserRole();
+}
+
+<div id="categoriesInfo">
+    <h2>Categories</h2>
+</div>
+
+
+<table class="table table-bordered table-condensed" id="categoriesTable">
+    <thead>
+        <tr>
+            <th style="text-align:center;">Category name</th>
+
+            <th style="text-align:center;"><div id="addNewCategory"><a class="pointer-arrow" onclick="addCategory()">Add new category</a></div></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td style="text-align:center;"><label id="label_category_@category.deviceCategoryId">@Html.DisplayFor(modelItem => category.deviceCategoryName)</label>
+                    <input id="input_category_@category.deviceCategoryId" type="text" value="@Html.DisplayFor(modelItem => category.deviceCategoryName)" style="display: none;" />
+                </td>
+                
+                @if (userRole == RoleNames.ROLE_ADMIN)
+                {
+                    <td style="text-align:center;"><a class="pointer-arrow" onclick="editCategory(@Html.DisplayFor(modelItem => category.deviceCategoryId))">Edit</a></td>
+                }
+                <td style="text-align:center;"><a class="pointer-arrow" onclick="deleteCategory(@Html.DisplayFor(modelItem => category.deviceCategoryId))">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="lastCategoryId" style="display: none;">@ViewBag.lastCategoryId</div>
